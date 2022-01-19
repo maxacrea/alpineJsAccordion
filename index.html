@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Static Template</title>
+  </head>
+  <body class="p-12">
+    <div
+      x-data="{
+        datas: [
+          {name: 'un', content: 'content un',open: false},
+          {name: 'deux', content: 'content deux',open: false},
+          {name: 'trois', content: 'content trois',open: false}  
+        ] 
+        ,
+        clickhandler(dt) {
+          for (let item in this.datas) {
+            let data = this.datas[item];
+            data.name === dt.name 
+            ? dt.open = !dt.open 
+            : data.open = false;
+          }
+        }
+      }"
+    >
+      <template x-for="dt in datas">
+        <div class="mb-1">
+          <button
+            class="block w-full py-2 px-4 bg-red-200 rounded-full text-xs"
+            @click="clickhandler(dt)"
+            x-text="dt.name"
+          ></button>
+          <div
+            x-show="dt.open"
+            class="py-2 text-xs text-gray-500"
+            x-text="dt.content"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 scale-0"
+            x-transition:enter-end="opacity-100 scale-100"
+          ></div>
+        </div>
+      </template>
+    </div>
+  </body>
+</html>
